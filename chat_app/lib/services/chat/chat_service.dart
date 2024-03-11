@@ -23,10 +23,7 @@ class ChatService {
   }
 
   // send message
-  Future<void> sendMessage(
-    String receiverId,
-    message,
-  ) async {
+  Future<void> sendMessage(String receiverId, message, String type_) async {
     // get the current user info
 
     final String currentId = _auth.currentUser!.uid;
@@ -40,6 +37,7 @@ class ChatService {
       senderEmail: currentEmail,
       receiverID: receiverId,
       timestamp: timestamp,
+      type: type_,
     );
 
     //construct chat room id for two users (sorted to ensure uniqueness)
@@ -68,5 +66,13 @@ class ChatService {
         .collection('messages')
         .orderBy('timestamp', descending: true)
         .snapshots();
+  }
+
+  String getChatRoomId(String receiverId) {
+    //construct chat room id for two users (sorted to ensure uniqueness)
+    final String currentId = _auth.currentUser!.uid;
+    List<String> ids = [currentId, receiverId];
+    ids.sort();
+    return ids.join('_');
   }
 }

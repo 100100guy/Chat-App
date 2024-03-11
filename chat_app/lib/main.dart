@@ -1,4 +1,5 @@
 import 'package:chat_app/pages/chat_page.dart';
+import 'package:chat_app/pages/full_image_screen.dart';
 import 'package:chat_app/services/auth/auth_gate.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/pages/home.dart';
@@ -24,6 +25,13 @@ class MyApp extends StatelessWidget {
     GoRoute(
         path: "/auth_gate", builder: ((context, state) => const AuthGate())),
     GoRoute(path: "/home", builder: ((context, state) => const HomePage())),
+    GoRoute(
+      path: "/full_image/:imageUrl",
+      builder: (context, state) {
+        final String imageUrl = state.pathParameters['imageUrl']!;
+        return FullScreenImage(imageUrl: imageUrl);
+      },
+    ),
     GoRoute(
       path: "/chat/:email/:uid",
       builder: ((context, state) {
