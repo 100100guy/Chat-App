@@ -8,6 +8,7 @@ class MyDrawer extends StatelessWidget {
   void logout(BuildContext context) {
     final _authService = AuthService();
     _authService.signOut();
+    _authService.setOnlineStatus('offline');
     GoRouter.of(context).go('/auth_gate');
   }
 

@@ -22,14 +22,17 @@ class AuthService {
   }
 
   // register
-  Future<UserCredential> register(String email, String password) async {
+  Future<UserCredential> register(
+      String name, String email, String password) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
 
       await _firestore.collection('Users').doc(userCredential.user!.uid).set({
+        'name': name,
         'uid': userCredential.user!.uid,
         'email': email,
+        "status": "Unvailable",
       });
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -42,5 +45,10 @@ class AuthService {
     await _auth.signOut();
   }
 
-  //error handling
+  void setOnlineStatus(String status) async {
+    await _firestore
+        .collection('Users')
+        .doc(_auth.currentUser!.uid)
+        .update({'status': status});
+  }
 }

@@ -11,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -18,6 +19,7 @@ class _RegisterPageState extends State<RegisterPage> {
   // Register function
   void register() {
     // Your Register logic here
+    String name = nameController.text;
     String email = emailController.text;
     String password = passwordController.text;
     String confirmPassword = confirmPasswordController.text;
@@ -41,7 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     final _authService = AuthService();
 
-    _authService.register(email, password).then((value) {
+    _authService.register(name, email, password).then((value) {
       //show flutter toast
       Fluttertoast.showToast(
           msg: "Registered successfully",
@@ -67,6 +69,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
+    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
@@ -89,7 +92,42 @@ class _RegisterPageState extends State<RegisterPage> {
                   size: 100,
                   color: Color.fromARGB(255, 38, 86, 39),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 20),
+                Container(
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    borderRadius: BorderRadius.circular(5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 120, 120, 120)
+                            .withOpacity(0.3), // Shadow color
+                        spreadRadius: 3, // Spread radius
+                        blurRadius: 7, // Blur radius
+                        offset: Offset(0, 3), // Offset in x and y directions
+                      ),
+                    ],
+                  ),
+                  child: TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        hintText: 'Name',
+                        //set hint text color to a custom color
+                        hintStyle: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .inversePrimary
+                                .withOpacity(0.5)),
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.tertiary,
+                        // set border radius without any border
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide.none,
+                        ),
+                      )),
+                ),
+                const SizedBox(height: 10),
                 Container(
                   width: 350,
                   decoration: BoxDecoration(

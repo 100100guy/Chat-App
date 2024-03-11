@@ -3,6 +3,7 @@
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/components/mydrawer.dart';
 import 'package:chat_app/services/chat/chat_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,9 +15,10 @@ class HomePage extends StatefulWidget {
 
 // create a state for the home page
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final _chatService = ChatService();
   final _authService = AuthService();
+  final _firestore = FirebaseFirestore.instance;
   List<Map<String, dynamic>> _users = [];
 
   // create a function to logout
@@ -24,6 +26,8 @@ class _HomePageState extends State<HomePage> {
     // add code to logout
     final _authService = AuthService();
     _authService.signOut();
+    _authService.setOnlineStatus('offline');
+    GoRouter.of(context).go('/auth_gate');
   }
 
   @override
@@ -36,8 +40,16 @@ class _HomePageState extends State<HomePage> {
             (user) => user['email'] == _authService.currentUser!.email);
       });
     });
+    WidgetsBinding.instance.addObserver(this);
+  }
 
-    // remove the current user from the list
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _authService.setOnlineStatus('online');
+    } else {
+      _authService.setOnlineStatus('offline');
+    }
   }
 
   @override

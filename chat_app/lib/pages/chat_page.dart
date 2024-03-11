@@ -6,6 +6,7 @@ import 'package:chat_app/models/message.dart';
 import 'package:chat_app/services/auth/auth_service.dart';
 import 'package:chat_app/components/mydrawer.dart';
 import 'package:chat_app/services/chat/chat_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,6 +26,7 @@ class _ChatPageState extends State<ChatPage> {
   final String uid;
   final _chatService = ChatService();
   final _authService = AuthService();
+  final _firestore = FirebaseFirestore.instance;
   final TextEditingController _messageController = TextEditingController();
   late StreamSubscription _messagesSubscription;
   List<Map<String, dynamic>> _messages = [];
@@ -88,13 +90,30 @@ class _ChatPageState extends State<ChatPage> {
               Theme.of(context).colorScheme.inversePrimary.withOpacity(0.5),
           title: Center(
             // Centering the text
-            child: Text(
-              email,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize:
-                      20 // Changing text color to red (you can choose any color you want)
-                  ),
+            child: StreamBuilder(
+              stream: _firestore.collection('Users').doc(uid).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Text(
+                    email,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            20 // Changing text color to red (you can choose any color you want)
+                        ),
+                  );
+                }
+                final user = snapshot.data;
+                print(user!['name'] + " user name");
+                return Text(
+                  user!['name'] + " - " + user['status'],
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize:
+                          20 // Changing text color to red (you can choose any color you want)
+                      ),
+                );
+              },
             ),
           ),
         ),
@@ -177,6 +196,7 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                   ),
+                  IconButton(onPressed: () => {}, icon: Icon(Icons.photo)),
                   IconButton(
                     onPressed: sendMessage,
                     icon: Icon(Icons.send),

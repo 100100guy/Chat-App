@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
     final authService = AuthService();
     try {
       await authService.signIn(email, password);
+      authService.setOnlineStatus('online');
       Fluttertoast.showToast(
           msg: "Login successful",
           toastLength: Toast.LENGTH_SHORT,
