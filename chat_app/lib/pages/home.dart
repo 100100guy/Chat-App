@@ -54,24 +54,25 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    Color inversePrimaryColor = Theme.of(context).colorScheme.inversePrimary;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            Theme.of(context).colorScheme.inversePrimary.withOpacity(0.5),
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Center(
           // Centering the text
           child: Text(
             'Home',
             style: TextStyle(
-              color: Colors
-                  .white, // Changing text color to red (you can choose any color you want)
+              color: Theme.of(context).colorScheme.inversePrimary,
+              // Changing text color to red (you can choose any color you want)
             ),
           ),
         ),
         actions: [
           IconButton(
             onPressed: logout,
-            icon: const Icon(Icons.logout, color: Colors.white),
+            icon: Icon(Icons.logout,
+                color: Theme.of(context).colorScheme.inversePrimary),
           ),
         ],
       ),
@@ -79,35 +80,61 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       // add drawer
       drawer: MyDrawer(),
 
-      body: ListView.builder(
-        itemCount: _users.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.fromLTRB(24, 6, 24, 0),
-            child: InkWell(
-              onTap: () {
-                GoRouter.of(context).push(
-                    '/chat/${_users[index]['email']}/${_users[index]['uid']}');
-              },
-              child: Card(
-                color: Theme.of(context).colorScheme.primary.withOpacity(0.7),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                elevation: 2,
-                child: ListTile(
-                  title: Text(
-                    _users[index]['email'],
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
+      body: Container(
+        margin: EdgeInsets.only(top: 5), // Add 5px gap between app bar and body
+        child: ListView.builder(
+          itemCount: _users.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+              child: InkWell(
+                onTap: () {
+                  GoRouter.of(context).push(
+                      '/chat/${_users[index]['email']}/${_users[index]['uid']}');
+                },
+                child: SizedBox(
+                  height: 90, // Set custom height for the card
+                  child: Card(
+                    color: Theme.of(context).colorScheme.secondary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(
+                          20, 4, 10, 4), // Add padding for ListTile
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical:
+                                4), // Add more space above and below the content
+                        title: Padding(
+                          padding: const EdgeInsets.fromLTRB(
+                              4, 8, 0, 0), // Add space above the title
+                          child: Text(
+                            _users[index]['email'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
+                            ),
+                          ),
+                        ),
+                        leading: Padding(
+                          padding: EdgeInsets.only(
+                              top: 8.0), // Add space above the leading icon
+                          child: Icon(Icons.person,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .inversePrimary), // Add leading icon
+                        ),
+                      ),
                     ),
                   ),
-                  leading: const Icon(Icons.person),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -86,11 +86,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(height: 200),
-                const Icon(
+                SizedBox(height: 200),
+                Icon(
                   Icons.message,
                   size: 100,
-                  color: Color.fromARGB(255, 38, 86, 39),
+                  color: Theme.of(context).colorScheme.inversePrimary,
                 ),
                 const SizedBox(height: 20),
                 Container(
@@ -251,12 +251,13 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontSize: 16,
                             color: Theme.of(context)
                                 .colorScheme
-                                .inversePrimary), // Set the desired font size here
+                                .primary), // Set the desired font size here
                       ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor:
+                        Theme.of(context).colorScheme.inversePrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -282,7 +283,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       onPressed: () {
                         // Navigate to sign up page
                         print("hi");
-                        GoRouter.of(context).go('/login');
+                        GoRouter.of(context).push('/login');
                       },
                       child: Text(
                         'Login!',

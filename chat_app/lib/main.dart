@@ -1,5 +1,6 @@
 import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/full_image_screen.dart';
+import 'package:chat_app/pages/groups/groups.dart';
 import 'package:chat_app/services/auth/auth_gate.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/pages/home.dart';
@@ -41,6 +42,8 @@ class MyApp extends StatelessWidget {
         return ChatPage(email: email!, uid: uid!);
       }),
     ),
+    // groups
+    GoRoute(path: "/groups", builder: ((context, state) => const GroupsPage())),
   ]);
   // This widget is the root of your application.
   @override

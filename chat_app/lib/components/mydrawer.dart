@@ -24,7 +24,7 @@ class MyDrawer extends StatelessWidget {
                 child: Icon(
                   Icons.message,
                   size: 100,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
             ),
@@ -39,6 +39,19 @@ class MyDrawer extends StatelessWidget {
                   onTap: () {
                     GoRouter.of(context).pop();
                     GoRouter.of(context).push('/home');
+                  },
+                )),
+            Padding(
+                padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
+                child: ListTile(
+                  title: Text('G R O U P S',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary)),
+                  leading: Icon(Icons.group,
+                      color: Theme.of(context).colorScheme.inversePrimary),
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                    GoRouter.of(context).push('/groups');
                   },
                 )),
             // settings

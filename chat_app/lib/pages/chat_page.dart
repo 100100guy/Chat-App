@@ -156,8 +156,7 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor:
-              Theme.of(context).colorScheme.inversePrimary.withOpacity(0.5),
+          backgroundColor: Theme.of(context).colorScheme.background,
           title: Center(
             // Centering the text
             child: StreamBuilder(
@@ -167,7 +166,7 @@ class _ChatPageState extends State<ChatPage> {
                   return Text(
                     email,
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.inversePrimary,
                         fontSize:
                             20 // Changing text color to red (you can choose any color you want)
                         ),
@@ -177,7 +176,7 @@ class _ChatPageState extends State<ChatPage> {
                 return Text(
                   user!['name'] + " - " + user['status'],
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.inversePrimary,
                       fontSize:
                           20 // Changing text color to red (you can choose any color you want)
                       ),
@@ -209,10 +208,7 @@ class _ChatPageState extends State<ChatPage> {
                               vertical: 8.0, horizontal: 16.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .inversePrimary
-                                  .withOpacity(0.9),
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.0),
                                 topRight: Radius.circular(20.0),
@@ -237,7 +233,7 @@ class _ChatPageState extends State<ChatPage> {
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .primary),
+                                          .inversePrimary),
                                 ),
                                 SizedBox(height: 4.0),
                                 Text(
@@ -246,8 +242,7 @@ class _ChatPageState extends State<ChatPage> {
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .primary
-                                          .withOpacity(0.5)),
+                                          .inversePrimary),
                                 ),
                               ],
                             ),
@@ -261,10 +256,7 @@ class _ChatPageState extends State<ChatPage> {
                               vertical: 8.0, horizontal: 16.0),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .inversePrimary
-                                  .withOpacity(0.9),
+                              color: Theme.of(context).colorScheme.primary,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20.0),
                                 topRight: Radius.circular(20.0),
@@ -312,8 +304,7 @@ class _ChatPageState extends State<ChatPage> {
                                   style: TextStyle(
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .primary
-                                          .withOpacity(0.5)),
+                                          .inversePrimary),
                                 ),
                               ],
                             ),

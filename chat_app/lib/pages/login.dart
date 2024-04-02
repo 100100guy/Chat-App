@@ -68,10 +68,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Icon(
+            Icon(
               Icons.message,
               size: 100,
-              color: Color.fromARGB(255, 38, 86, 39),
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
             const SizedBox(height: 60),
             Container(
@@ -159,12 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 16,
                         color: Theme.of(context)
                             .colorScheme
-                            .inversePrimary), // Set the desired font size here
+                            .primary), // Set the desired font size here
                   ),
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   onPressed: () {
                     // Navigate to sign up page
-                    GoRouter.of(context).go('/register');
+                    GoRouter.of(context).push('/register');
                   },
                   child: Text(
                     'Sign up here!',
