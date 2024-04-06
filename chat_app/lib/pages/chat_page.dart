@@ -322,14 +322,21 @@ class _ChatPageState extends State<ChatPage> {
                       controller: _messageController,
                       decoration: InputDecoration(
                         hintText: 'Type a message',
+                        // set hint text color to grey
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
                       ),
                     ),
                   ),
                   IconButton(
-                      onPressed: () => getImage(), icon: Icon(Icons.photo)),
+                      onPressed: () => getImage(),
+                      icon: Icon(Icons.photo,
+                          color: Theme.of(context).colorScheme.inversePrimary)),
                   IconButton(
                     onPressed: sendMessage,
-                    icon: Icon(Icons.send),
+                    icon: Icon(Icons.send,
+                        color: Theme.of(context).colorScheme.inversePrimary),
                   ),
                 ],
               ),

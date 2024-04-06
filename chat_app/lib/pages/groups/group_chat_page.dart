@@ -173,6 +173,9 @@ class _GroupChatPageState extends State<GroupChatPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
+          iconTheme: Theme.of(context)
+              .iconTheme
+              .copyWith(color: Theme.of(context).colorScheme.inversePrimary),
           title: Center(
               // Centering the text
               child: Text(
@@ -365,14 +368,20 @@ class _GroupChatPageState extends State<GroupChatPage> {
                       controller: _messageController,
                       decoration: InputDecoration(
                         hintText: 'Type a message',
+                        hintStyle: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
                       ),
                     ),
                   ),
                   IconButton(
-                      onPressed: () => getImage(), icon: Icon(Icons.photo)),
+                      onPressed: () => getImage(),
+                      icon: Icon(Icons.photo,
+                          color: Theme.of(context).colorScheme.inversePrimary)),
                   IconButton(
                     onPressed: sendMessage,
-                    icon: Icon(Icons.send),
+                    icon: Icon(Icons.send,
+                        color: Theme.of(context).colorScheme.inversePrimary),
                   ),
                 ],
               ),

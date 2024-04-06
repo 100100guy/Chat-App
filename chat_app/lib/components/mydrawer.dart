@@ -1,6 +1,10 @@
 import 'package:chat_app/services/auth/auth_service.dart';
+import 'package:chat_app/themes/dark_mode.dart';
+import 'package:chat_app/themes/light_mode.dart';
+import 'package:chat_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -15,6 +19,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+        // drawer icon color
         backgroundColor: Theme.of(context).colorScheme.background,
         child: Column(
           children: [
@@ -28,6 +33,7 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
             ),
+
             Padding(
                 padding: EdgeInsets.fromLTRB(25, 0, 0, 0),
                 child: ListTile(
@@ -63,7 +69,10 @@ class MyDrawer extends StatelessWidget {
                           color: Theme.of(context).colorScheme.inversePrimary)),
                   leading: Icon(Icons.settings,
                       color: Theme.of(context).colorScheme.inversePrimary),
-                  onTap: () {},
+                  onTap: () {
+                    GoRouter.of(context).pop();
+                    GoRouter.of(context).push('/settings');
+                  },
                 )),
             // logout
             Padding(

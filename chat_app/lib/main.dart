@@ -1,20 +1,29 @@
 import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/full_image_screen.dart';
 import 'package:chat_app/pages/groups/groups.dart';
+import 'package:chat_app/pages/settings.dart';
 import 'package:chat_app/services/auth/auth_gate.dart';
 import 'package:chat_app/firebase_options.dart';
 import 'package:chat_app/pages/home.dart';
 import 'package:chat_app/pages/login.dart';
 import 'package:chat_app/pages/register.dart';
 import 'package:chat_app/themes/light_mode.dart';
+import 'package:chat_app/themes/theme_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -44,13 +53,15 @@ class MyApp extends StatelessWidget {
     ),
     // groups
     GoRoute(path: "/groups", builder: ((context, state) => const GroupsPage())),
+    GoRoute(
+        path: "/settings", builder: ((context, state) => const SettingsPage())),
   ]);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: lightMode,
+      theme: Provider.of<ThemeProvider>(context).getTheme(),
       // home: RegisterPage(),
       routerConfig: router,
     );

@@ -68,6 +68,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
             ),
           ),
         ),
+        iconTheme:
+            Theme.of(context).iconTheme.copyWith(color: inversePrimaryColor),
         actions: [
           IconButton(
             onPressed: logout,

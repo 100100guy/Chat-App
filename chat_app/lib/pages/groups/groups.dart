@@ -65,6 +65,9 @@ class _GroupsPageState extends State<GroupsPage> with WidgetsBindingObserver {
               ),
             ),
           ),
+          iconTheme: Theme.of(context)
+              .iconTheme
+              .copyWith(color: Theme.of(context).colorScheme.inversePrimary),
           actions: [
             IconButton(
               onPressed: () {
